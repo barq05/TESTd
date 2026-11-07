@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURABOT | لوحة التحكم</title><meta name="robots" content="noindex"><link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>document.documentElement.dataset.theme=localStorage.th||(matchMedia("(prefers-color-scheme:light)").matches?"light":"dark")</script><style>
+:root,[data-theme=dark]{--bg:#0d0019;--bg2:#17002e;--sol:#1c0838;--card:#ffffff0c;--bd:#ffffff22;--t:#f7f1ff;--m:#bcaad9;--acc:#e866c8;--g:linear-gradient(135deg,#5a00a8,#a1007f);--glow:#a1007f70;--nav:#0d0019db;--in:#ffffff10;--dot:#ffffff16}
+[data-theme=light]{--bg:#f7f1fd;--bg2:#ebdcf8;--sol:#fff;--card:#ffffffeb;--bd:#5a00a830;--t:#1c0a33;--m:#5f4a86;--acc:#8c0a6c;--glow:#a1007f33;--nav:#f7f1fde8;--in:#fff;--dot:#5a00a824}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:system-ui,system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.8;min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s}
+.aur{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:radial-gradient(900px 520px at 88% -5%,#a1007f40,transparent 70%),radial-gradient(800px 600px at 4% 105%,#5a00a85e,transparent 70%),linear-gradient(180deg,var(--bg),var(--bg2))}
+.aur:before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--dot) 1.4px,transparent 1.7px);background-size:26px 26px;-webkit-mask-image:linear-gradient(#000,transparent 85%);mask-image:linear-gradient(#000,transparent 85%)}
+.aur i{display:none}
+@keyframes fl{50%{transform:translateY(-14px) rotate(2deg)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pu{50%{opacity:.75;transform:scale(1.18)}}@keyframes pop{from{opacity:0;transform:scale(.93) translateY(10px)}}@keyframes mq{to{transform:translateX(-50%)}}@keyframes sk{to{background-position:-200% 0}}@keyframes dash{to{stroke-dashoffset:-160}}
+a,button,.card,summary,.tg,select,input,textarea,details,.lg,.tag,aside a,.st div,tr td{transition:filter .3s ease,transform .3s ease,background-color .3s ease,border-color .3s ease,box-shadow .3s ease,color .3s ease}
+.btn:hover,.card:hover,.tg:hover,nav a:hover,summary:hover,aside a:hover,.lg:hover,details:hover,.st div:hover,.tag:hover,select:hover{filter:brightness(1.16) saturate(1.1)}
+.btn{position:relative;overflow:hidden;background:var(--g);color:#fff;border:0;border-radius:14px;padding:12px 28px;font:600 15px system-ui;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 26px var(--glow)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 34px var(--glow)}.btn:active{transform:scale(.96)}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff4 50%,transparent 70%);transform:translateX(120%);transition:transform .7s}.btn:hover:after{transform:translateX(-120%)}
+.btn.s{background:var(--in);color:var(--t);border:1px solid var(--bd);box-shadow:none;padding:8px 18px;font-size:14px}.btn.s:hover{border-color:var(--acc)}.btn.r{background:#e11d48;box-shadow:none;padding:8px 18px;font-size:14px}.btn:disabled{opacity:.5;pointer-events:none}
+input,select,textarea{width:100%;background:var(--in);border:1px solid var(--bd);color:var(--t);border-radius:12px;padding:11px 14px;font:inherit;margin:5px 0 10px}input:hover,textarea:hover{border-color:var(--acc)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 4px var(--glow)}option{background:var(--sol);color:var(--t)}
+#md{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:99;padding:14px}
+#md>div{background:var(--sol);border:1px solid var(--bd);border-top:4px solid var(--acc);border-radius:22px;padding:26px;width:100%;max-width:500px;max-height:90vh;overflow:auto;animation:pop .35s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 80px #0006}
+#tt{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:11px 24px;border-radius:14px;display:none;z-index:999;box-shadow:0 10px 30px var(--glow)}
+.tag{display:inline-block;background:var(--glow);color:var(--acc);border-radius:999px;padding:1px 12px;font-size:12.5px;font-weight:600;margin:2px 0}
+.msg{background:var(--in);border:1px solid var(--bd);border-radius:14px;padding:9px 14px;margin:8px 0}.msg.st,.msg.st2{border-right:3px solid var(--acc)}.empty{color:var(--m);text-align:center;padding:26px}
+.tg{width:42px;height:42px;border-radius:50%;border:1px solid var(--bd);background:var(--in);color:var(--t);cursor:pointer;font-size:18px}.tg:hover{transform:rotate(180deg) scale(1.08)}.tg:before{content:"☾"}[data-theme=light] .tg:before{content:"☀"}
+#ld{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:9999;transition:opacity .6s,visibility .6s}#ld.x{opacity:0;visibility:hidden}#ld img{width:96px;border-radius:26px;animation:pu 1.4s ease-in-out infinite;box-shadow:0 0 60px var(--glow)}
+.orb{position:relative;width:min(340px,70vw);aspect-ratio:1;margin:auto;display:grid;place-items:center}
+.orb:before{content:"";position:absolute;inset:6%;background:radial-gradient(circle,#a1007f77,transparent 68%);border-radius:50%}
+.orb img{width:56%;border-radius:26%;position:relative;z-index:2;animation:fl 6s ease-in-out infinite;box-shadow:0 30px 70px var(--glow),0 0 0 1px var(--bd)}
+.orb i{position:absolute;inset:0;border-radius:50%;border:1px dashed var(--acc);opacity:.5;animation:spin 26s linear infinite}.orb i+i{inset:12%;border-style:solid;animation-duration:18s;animation-direction:reverse}
+.orb i:after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 16px var(--acc)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#lg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:14px;text-align:center;padding:20px}#lg .orb{width:min(230px,55vw)}#lg h2{font:700 28px system-ui,system-ui}#lg p{color:var(--m)}
+#ap{display:none;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,#2c0057,#16002b);color:#fff;border-left:3px solid #a1007f;padding:18px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;box-shadow:8px 0 40px #0004}
+aside .l{display:flex;align-items:center;gap:10px;font:700 20px system-ui;margin:4px 6px 20px;letter-spacing:1px}aside .l img{width:40px;border-radius:12px;transition:.5s cubic-bezier(.3,1.6,.5,1)}aside .l:hover img{transform:rotate(-12deg) scale(1.12)}
+aside small{color:#cdb8ec!important}aside a{padding:10px 14px;border-radius:12px;color:#d8c6f1;cursor:pointer;font-weight:500}aside a:hover{background:#ffffff24;color:#fff;transform:translateX(-4px)}aside a.on{background:var(--g);color:#fff;box-shadow:0 8px 22px #a1007f66}
+main{padding:30px;overflow-x:auto;animation:pop .5s;background-image:radial-gradient(var(--dot) 1.4px,transparent 1.7px);background-size:26px 26px}h2{font:700 28px system-ui,system-ui;margin-bottom:18px}h2:before{content:"";display:inline-block;width:30px;height:4px;border-radius:4px;background:var(--acc);margin-inline-end:10px;vertical-align:middle}h3{margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden}th,td{padding:12px 14px;text-align:right;border-bottom:1px solid var(--bd);font-size:14px}th{background:var(--g);color:#fff;font-weight:600}tr:last-child td{border:0}tr:hover td{background:var(--glow)}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}.st div{background:var(--card);border:1px solid var(--bd);border-top:4px solid #a1007f;border-radius:18px;padding:18px 20px;color:var(--m)}.st div:hover{transform:translateY(-6px);box-shadow:0 18px 44px var(--glow);border-color:var(--acc)}.st b{font:700 34px system-ui;display:block;color:var(--acc)}
+select{width:auto;min-width:130px;margin:0}td select{padding:6px 10px}
+@media(max-width:860px){#ap{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;border-left:0;border-bottom:3px solid #a1007f}main{padding:16px}}
+</style></head><body>
+<div id="ld"><img src="logo-a.webp" alt=""></div><div class="aur"><i></i><i></i><i></i></div><div id="lg"><div class="orb"><i></i><i></i><img src="logo-a.webp" alt="AURABOT"></div><h2>لوحة تحكم <span style="background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent">AURABOT</span></h2><p id="lm">الدخول للموظفين المصرّح لهم فقط</p><button class="btn" onclick="login()">تسجيل الدخول بـ Google</button><button class="tg" onclick="theme()" aria-label="theme"></button></div>
+<div id="ap"><aside id="sd"></aside><main id="mn"></main></div><div id="md"><div id="mc"></div></div><div id="tt"></div>
+<script>
+/* ===== الإعدادات: Supabase URL + anon key فقط (مفيش service key هنا أبداً) ===== */
+const C={URL:'',KEY:''};
+const sb=supabase.createClient(C.URL||'https://x.supabase.co',C.KEY||'x');
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>Number(n).toLocaleString('ar-EG')+' ج.م',dt=d=>new Date(d).toLocaleString('ar-EG');
+const R={owner:'المالك',owner2:'أونر',admin:'ادمن',receiver:'مستقبل طلبات'},RK={owner:4,owner2:3,admin:2,receiver:1};
+const OS={pending_payment:'بانتظار الدفع',payment_review:'الدفع قيد المراجعة',paid:'مدفوع',in_progress:'قيد التنفيذ',completed:'مكتمل',cancelled:'ملغي'};
+const TS={open:'مفتوحة',in_progress:'قيد المعالجة',waiting:'بانتظار العميل',resolved:'تم الحل',closed:'مغلقة'};
+const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${k==v?'selected':''}>${l}</option>`).join('');
+const toast=m=>{const t=$('#tt');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3500)};
+const ok=async p=>{const{data,error}=await p;if(error){toast(error.message);throw error}return data};
+const modal=h=>{$('#mc').innerHTML=h;$('#md').style.display='flex'},closeM=()=>$('#md').style.display='none';$('#md').onclick=e=>{if(e.target.id=='md')closeM()};
+let me,tab='stats',D={};
+const can={prodAdd:()=>RK[me.role]>=2,prodEdit:()=>RK[me.role]>=3,pay:()=>RK[me.role]>=3,emp:()=>RK[me.role]>=3,owner:()=>me.role=='owner'};
+const log=a=>sb.from('logs').insert({email:me.email,action:a});
+const login=()=>sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href.split('#')[0]}});
+const logout=async()=>{await sb.auth.signOut();location.reload()};
+async function boot(){const{data:{session}}=await sb.auth.getSession();if(!session)return;
+const{data}=await sb.from('employees').select('*').eq('email',session.user.email.toLowerCase()).maybeSingle();
+if(!data){await sb.auth.signOut();$('#lm').innerHTML='⛔ هذا الحساب غير مصرّح له بالدخول';return}
+me=data;$('#lg').style.display='none';$('#ap').style.display='grid';nav();render();
+sb.channel('d').on('postgres_changes',{event:'*',schema:'public'},p=>{if(p.table=='chat'&&tab=='chat')chatRender();else if(['orders','tickets','products','payment_methods','employees'].includes(p.table)&&tab!='chat'&&$('#md').style.display!='flex')render()}).subscribe()}
+function nav(){const T=[['stats','📊 الرئيسية'],['orders','🧾 الطلبات'],['tickets','🎫 التذاكر'],['chat','💬 الشات الداخلي']];
+if(can.prodAdd())T.push(['products','🤖 المنتجات']);if(can.pay())T.push(['pays','💳 طرق الدفع'],['coupons','🏷️ الكوبونات']);if(can.emp())T.push(['emps','👥 الموظفين']);if(can.owner())T.push(['sets','⚙️ الإعدادات']);
+$('#sd').innerHTML=`<div class="l"><img src="logo-a.webp">AURABOT</div>${T.map(([k,l])=>`<a class="${k==tab?'on':''}" onclick="tab='${k}';nav();render()">${l}</a>`).join('')}<div style="flex:1"></div><small style="color:var(--m)">${esc(me.name||me.email)}<br>${R[me.role]}</small><a onclick="theme()">🌓 تبديل الثيم</a><a onclick="logout()">خروج</a>`}
+function render(){({stats,orders,tickets,chat,products,pays,coupons,emps,sets})[tab]()}
+async function cnt(t,f){let q=sb.from(t).select('*',{count:'exact',head:true});if(f)q=f(q);return(await q).count||0}
+async function stats(){const[a,b,c,d,e,f,g]=await Promise.all([cnt('orders'),cnt('orders',q=>q.in('status',['pending_payment','payment_review'])),cnt('orders',q=>q.eq('status','completed')),cnt('products'),cnt('tickets',q=>q.eq('type','support').not('status','in','(resolved,closed)')),cnt('tickets',q=>q.eq('type','complaint').not('status','in','(resolved,closed)')),cnt('employees')]);
+const ro=(await sb.from('orders').select('*').order('created_at',{ascending:false}).limit(5)).data||[],rt=(await sb.from('tickets').select('*').order('created_at',{ascending:false}).limit(5)).data||[];
+$('#mn').innerHTML=`<h2>الإحصائيات</h2><div class="st">${[['إجمالي الطلبات',a],['طلبات معلّقة',b],['طلبات مكتملة',c],['المنتجات',d],['تذاكر نشطة',e],['شكاوى غير محلولة',f],['الموظفين',g]].map(([l,v])=>`<div><b>${v}</b>${l}</div>`).join('')}</div>
+<h3>آخر الطلبات</h3>${ro.map(o=>`<p>#${o.num} ${esc(o.product_name)} — ${esc(o.discord)} <span class="tag">${OS[o.status]}</span></p>`).join('')||'<div class="empty">لا يوجد</div>'}<br><h3>آخر التذاكر</h3>${rt.map(k=>`<p>#${k.num} ${esc(k.discord)} <span class="tag">${TS[k.status]}</span></p>`).join('')||'<div class="empty">لا يوجد</div>'}`}
+async function orders(){const d=D.o=await ok(sb.from('orders').select('*').order('created_at',{ascending:false}));
+$('#mn').innerHTML=`<h2>الطلبات</h2><table><tr><th>#</th><th>المنتج</th><th>العميل</th><th>السعر</th><th>الدفع</th><th>الحالة</th><th></th></tr>${d.map((o,i)=>`<tr><td>${o.num}</td><td>${esc(o.product_name)}</td><td>${esc(o.customer_name)}<br><small>${esc(o.discord)}</small></td><td>${fmt(o.final_price)}</td><td>${o.pay_status=='paid'?'✅':o.pay_status=='review'?'⏳':'—'}</td>
+<td><select onchange="setO('${o.id}',this.value)">${opt(OS,o.status)}</select></td><td><button class="btn s" onclick="viewO(${i})">تفاصيل</button>${can.owner()?` <button class="btn r" onclick="delRow('orders','${o.id}')">حذف</button>`:''}</td></tr>`).join('')}</table>${d.length?'':'<div class="empty">لا توجد طلبات</div>'}`}
+async function setO(id,v){const u={status:v};if(v=='paid')u.pay_status='paid';await ok(sb.from('orders').update(u).eq('id',id));log('order '+id+' → '+v);toast('تم التحديث');orders()}
+async function viewO(i){const o=D.o[i],h=await ok(sb.from('order_history').select('*').eq('order_id',o.id).order('id'));
+modal(`<h3>طلب #${o.num}</h3><p>المنتج: ${esc(o.product_name)}<br>العميل: ${esc(o.customer_name)} · ${esc(o.discord)}<br>السعر الأصلي: ${fmt(o.original_price)} · النهائي: ${fmt(o.final_price)}<br>الكوبون: ${esc(o.coupon||'—')}<br>ملاحظات: ${esc(o.notes||'—')}<br>الدفع: ${o.pay_status}<br>التاريخ: ${dt(o.created_at)}</p><h4>السجل</h4>${h.map(x=>`<small>${dt(x.at)} — ${OS[x.status]} ${esc(x.by_email||'العميل')}</small><br>`).join('')}<br><button class="btn s" onclick="closeM()">إغلاق</button>`)}
+async function delRow(t,id){if(!confirm('حذف نهائي؟ لا يمكن التراجع.'))return;await ok(sb.from(t).delete().eq('id',id));log('delete '+t+' '+id);render()}
+async function tickets(){const d=D.t=await ok(sb.from('tickets').select('*').order('created_at',{ascending:false}));
+$('#mn').innerHTML=`<h2>التذاكر</h2><table><tr><th>#</th><th>النوع</th><th>العميل</th><th>التاريخ</th><th>الحالة</th><th></th></tr>${d.map(k=>`<tr><td>${k.num}</td><td>${k.type=='support'?'دعم فني':'شكوى'}</td><td>${esc(k.discord)}</td><td>${dt(k.created_at)}</td><td><select onchange="setT('${k.id}',this.value)">${opt(TS,k.status)}</select></td><td><button class="btn s" onclick="openT('${k.id}')">فتح</button>${can.owner()?` <button class="btn r" onclick="delRow('tickets','${k.id}')">حذف</button>`:''}</td></tr>`).join('')}</table>${d.length?'':'<div class="empty">لا توجد تذاكر</div>'}`}
+async function setT(id,v){await ok(sb.from('tickets').update({status:v}).eq('id',id));log('ticket '+id+' → '+v);toast('تم التحديث')}
+async function openT(id){const m=await ok(sb.from('ticket_messages').select('*').eq('ticket_id',id).order('id'));
+modal(`<h3>المحادثة</h3>${m.map(x=>`<div class="msg ${x.from_staff?'st2':''}"><small>${esc(x.sender)} — ${dt(x.created_at)}</small><br>${esc(x.body)}</div>`).join('')}<textarea id="rb" rows="2" placeholder="ردك على العميل"></textarea><button class="btn" onclick="repT('${id}')">إرسال</button> <button class="btn s" onclick="closeM()">إغلاق</button>`)}
+async function repT(id){const b=$('#rb').value.trim();if(!b)return;await ok(sb.from('ticket_messages').insert({ticket_id:id,from_staff:true,sender:me.name||R[me.role],body:b}));await sb.from('tickets').update({status:'waiting'}).eq('id',id);openT(id)}
+/* نموذج عام */
+function form(title,F,v,fn){window._f=async()=>{const o={};for(const f of F){const e=$('#f_'+f.k);o[f.k]=f.t=='checkbox'?e.checked:f.t=='number'?+e.value:e.value||null}try{await fn(o);closeM();render()}catch(e){}};
+modal(`<h3>${title}</h3><br>${F.map(f=>`<label>${f.l}</label>${f.t=='select'?`<select id="f_${f.k}">${opt(f.o,v?.[f.k])}</select>`:f.t=='textarea'?`<textarea id="f_${f.k}" rows="3">${esc(v?.[f.k])}</textarea>`:f.t=='checkbox'?`<br><input type="checkbox" id="f_${f.k}" style="width:auto" ${v?.[f.k]??f.d?'checked':''}><br>`:`<input id="f_${f.k}" type="${f.t||'text'}" value="${esc(f.t=='datetime-local'&&v?.[f.k]?new Date(new Date(v[f.k])-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16):v?.[f.k]??'')}">`}`).join('')}<button class="btn" onclick="_f()">حفظ</button> <button class="btn s" onclick="closeM()">إلغاء</button>`)}
+const PF=[{k:'name',l:'اسم المنتج'},{k:'description',l:'الوصف',t:'textarea'},{k:'price',l:'السعر (ج.م)',t:'number'},{k:'disc_type',l:'نوع الخصم',t:'select',o:{'':'بدون خصم',fixed:'مبلغ ثابت',percent:'نسبة %'}},{k:'disc_value',l:'قيمة الخصم',t:'number'},{k:'disc_expires',l:'انتهاء الخصم',t:'datetime-local'},{k:'bonus',l:'بوت هدية (اختياري)'},{k:'active',l:'متاح للبيع',t:'checkbox',d:1}];
+async function products(){const d=D.p=await ok(sb.from('products').select('*').order('created_at'));
+$('#mn').innerHTML=`<h2>المنتجات</h2><button class="btn" onclick="editP()">+ منتج جديد</button><br><br><table><tr><th>الاسم</th><th>السعر</th><th>الخصم</th><th>هدية</th><th>متاح</th><th></th></tr>${d.map((p,i)=>`<tr><td>${esc(p.name)}</td><td>${fmt(p.price)}</td><td>${p.disc_type?esc(p.disc_value)+(p.disc_type=='percent'?'%':' ج.م'):'—'}</td><td>${esc(p.bonus||'—')}</td><td>${p.active?'✅':'❌'}</td><td>${can.prodEdit()?`<button class="btn s" onclick="editP(${i})">تعديل</button> <button class="btn r" onclick="delRow('products','${p.id}')">حذف</button>`:''}</td></tr>`).join('')}</table>`}
+function editP(i){const p=D.p[i];form(p?'تعديل منتج':'منتج جديد',PF,p,async o=>{o.disc_type=o.disc_type||null;if(o.disc_expires)o.disc_expires=new Date(o.disc_expires).toISOString();if(!o.name||o.price<0)throw toast('بيانات غير صحيحة');await ok(p?sb.from('products').update(o).eq('id',p.id):sb.from('products').insert(o));log('product '+o.name)})}
+const MF=[{k:'name',l:'اسم الطريقة'},{k:'instructions',l:'تعليمات الدفع',t:'textarea'},{k:'info',l:'بيانات الدفع (رقم/حساب)'},{k:'enabled',l:'مفعّلة',t:'checkbox',d:1}];
+async function pays(){const d=D.m=await ok(sb.from('payment_methods').select('*'));$('#mn').innerHTML=`<h2>طرق الدفع</h2><button class="btn" onclick="editM()">+ إضافة</button><br><br><table><tr><th>الاسم</th><th>البيانات</th><th>مفعّلة</th><th></th></tr>${d.map((m,i)=>`<tr><td>${esc(m.name)}</td><td dir="ltr">${esc(m.info)}</td><td>${m.enabled?'✅':'❌'}</td><td><button class="btn s" onclick="editM(${i})">تعديل</button> <button class="btn r" onclick="delRow('payment_methods','${m.id}')">حذف</button></td></tr>`).join('')}</table>`}
+function editM(i){const m=D.m[i];form('طريقة دفع',MF,m,async o=>{await ok(m?sb.from('payment_methods').update(o).eq('id',m.id):sb.from('payment_methods').insert(o));log('payment '+o.name)})}
+const CF=[{k:'code',l:'الكود'},{k:'type',l:'النوع',t:'select',o:{percent:'نسبة %',fixed:'مبلغ ثابت'}},{k:'value',l:'القيمة',t:'number'},{k:'expires',l:'ينتهي في',t:'datetime-local'},{k:'active',l:'مفعّل',t:'checkbox',d:1}];
+async function coupons(){const d=await ok(sb.from('coupons').select('*'));$('#mn').innerHTML=`<h2>الكوبونات</h2><button class="btn" onclick="addC()">+ كوبون</button><br><br><table><tr><th>الكود</th><th>القيمة</th><th>ينتهي</th><th></th></tr>${d.map(c=>`<tr><td>${esc(c.code)}</td><td>${esc(c.value)}${c.type=='percent'?'%':' ج.م'}</td><td>${c.expires?dt(c.expires):'—'}</td><td><button class="btn r" onclick="delC('${esc(c.code)}')">حذف</button></td></tr>`).join('')}</table>`}
+function addC(){form('كوبون جديد',CF,null,async o=>{o.code=o.code.toUpperCase().trim();if(o.expires)o.expires=new Date(o.expires).toISOString();await ok(sb.from('coupons').insert(o))})}
+async function delC(c){if(confirm('حذف؟')){await ok(sb.from('coupons').delete().eq('code',c));coupons()}}
+async function emps(){const d=D.e=await ok(sb.from('employees').select('*').order('created_at'));$('#mn').innerHTML=`<h2>الموظفين</h2><button class="btn" onclick="editE()">+ موظف</button><br><br><table><tr><th>الإيميل</th><th>الاسم</th><th>الدور</th><th></th></tr>${d.map((e,i)=>`<tr><td dir="ltr">${esc(e.email)}</td><td>${esc(e.name)}</td><td>${R[e.role]}</td><td>${e.email!=me.email&&(me.role=='owner'||RK[e.role]<3)?`<button class="btn s" onclick="editE(${i})">تعديل</button> <button class="btn r" onclick="remE(${i})">إزالة</button>`:''}</td></tr>`).join('')}</table>`}
+function editE(i){const e=D.e[i],roles=Object.fromEntries(Object.entries(R).filter(([k])=>me.role=='owner'||RK[k]<3));form(e?'تعديل دور':'موظف جديد',[{k:'email',l:'Gmail'},{k:'name',l:'الاسم'},{k:'role',l:'الدور',t:'select',o:roles}],e,async o=>{await ok(sb.rpc('set_employee',{p_email:o.email,p_name:o.name,p_role:o.role}))})}
+async function remE(i){if(confirm('إزالة الموظف وسحب صلاحياته فوراً؟')){await ok(sb.rpc('remove_employee',{p_email:D.e[i].email}));emps()}}
+async function sets(){const{data}=await sb.from('settings').select('*').eq('key','discord_url').maybeSingle();$('#mn').innerHTML=`<h2>الإعدادات</h2><label>رابط سيرفر الديسكورد</label><input id="du" dir="ltr" value="${esc(data?.value)}"><button class="btn" onclick="saveS()">حفظ</button>`}
+async function saveS(){const v=$('#du').value.trim();if(v&&!/^https:\/\//.test(v))return toast('لازم الرابط يبدأ بـ https://');await ok(sb.from('settings').upsert({key:'discord_url',value:v}));toast('تم الحفظ')}
+async function chat(){$('#mn').innerHTML=`<h2>الشات الداخلي</h2><div id="cm" style="height:60vh;overflow:auto"></div><input id="ci" placeholder="اكتب رسالة واضغط Enter" onkeydown="if(event.key=='Enter')sendC()">${can.owner()?'<button class="btn r" onclick="clrC()">مسح الشات بالكامل</button>':''}`;chatRender()}
+async function chatRender(){const d=await ok(sb.from('chat').select('*').order('id').limit(200));const b=$('#cm');if(!b)return;b.innerHTML=d.map(m=>`<div class="msg"><small>${esc(m.name)} <span class="tag">${R[m.role]}</span> ${dt(m.created_at)}</small>${m.email==me.email||can.owner()?` <a style="cursor:pointer;color:#f66" onclick="delC2(${m.id})">🗑</a>`:''}<br>${esc(m.body)}</div>`).join('')||'<div class="empty">لا توجد رسائل</div>';b.scrollTop=1e9}
+async function sendC(){const i=$('#ci'),v=i.value.trim();if(!v)return;i.value='';await ok(sb.from('chat').insert({email:me.email,name:me.name||me.email,role:me.role,body:v.slice(0,1000)}))}
+async function delC2(id){await ok(sb.from('chat').delete().eq('id',id))}
+async function clrC(){if(confirm('مسح كل الرسائل؟')){await ok(sb.rpc('clear_chat'));chatRender()}}
+const theme=()=>{const d=document.documentElement,n=d.dataset.theme=='dark'?'light':'dark';d.dataset.theme=n;localStorage.th=n};
+addEventListener('load',()=>setTimeout(()=>$('#ld').classList.add('x'),500));
+new MutationObserver(()=>document.querySelectorAll('.st b:not([data-d])').forEach(b=>{b.dataset.d=1;const n=+b.textContent;let i=0;const f=()=>{i=Math.min(n,i+Math.ceil(n/30));b.textContent=i;i<n&&requestAnimationFrame(f)};n&&f()})).observe($('#mn'),{childList:true,subtree:true});
+boot();
+</script></body></html>
