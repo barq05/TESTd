@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOTAURA | بوتات ديسكورد ودعم فني</title>
+<meta name="description" content="نصمم ونبيع بوتات ديسكورد جاهزة ومخصصة، ونوفر دعماً فنياً لسيرفرك.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%236d28d9'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle'%3E🤖%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#150538; --bg2:#200a5c; --card:#2a1170; --line:#4c2fb0;
+  --violet:#7c3aed; --lav:#a78bfa; --pink:#e879f9; --text:#f3eeff; --mute:#b9a9ee;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Readex Pro',Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(60vw 60vw at 85% -10%,#4a1fb8 0%,transparent 60%),radial-gradient(50vw 50vw at 0% 40%,#6b1b8f55 0%,transparent 60%)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+nav{position:sticky;top:0;z-index:20;background:#150538d9;backdrop-filter:blur(12px);border-bottom:1px solid #4c2fb055}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em}
+.brand img{width:36px;height:36px;border-radius:10px}
+.links{display:flex;gap:26px;color:var(--mute);font-size:.95rem}
+.links a:hover{color:var(--pink)}
+.btn{display:inline-block;padding:11px 24px;border-radius:12px;font-weight:600;border:0;cursor:pointer;font:inherit;font-weight:600;transition:transform .2s,box-shadow .2s}
+.btn.main{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;box-shadow:0 8px 28px #7c3aed66}
+.btn.main:hover{transform:translateY(-2px);box-shadow:0 12px 36px #e879f966}
+.btn.ghost{border:1px solid var(--line);color:var(--lav);background:transparent}
+.btn.ghost:hover{border-color:var(--pink);color:var(--pink)}
+@media(max-width:760px){.links{display:none}}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:70px 0 50px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.25;font-weight:700}
+.hero h1 span{background:linear-gradient(90deg,var(--lav),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mute);font-size:1.1rem;max-width:520px;margin:18px 0 30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.orbit{position:relative;width:min(420px,86vw);aspect-ratio:1;margin:auto}
+.orbit svg{width:100%;height:100%;overflow:visible}
+.ring-a{transform-origin:200px 200px;animation:spin 40s linear infinite}
+.ring-b{transform-origin:200px 200px;animation:spin 26s linear infinite reverse}
+.bob{animation:bob 4s ease-in-out infinite}
+.blink{transform-origin:center;animation:blink 5s infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@media(max-width:860px){.hero{grid-template-columns:1fr;text-align:center}.hero p{margin-inline:auto}.cta{justify-content:center}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.stat{background:#2a117099;border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center}
+.stat b{display:block;font-size:2rem;color:var(--pink);font-weight:700;line-height:1.3}
+.stat small{color:var(--mute)}
+.stat.live b::after{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#4ade80;margin-inline-start:8px;box-shadow:0 0 10px #4ade80;vertical-align:middle}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+section{padding:64px 0}
+h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:8px}
+.sub{color:var(--mute);margin-bottom:34px;max-width:560px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:linear-gradient(160deg,#2a1170,#1d0a52);border:1px solid var(--line);border-radius:18px;padding:26px;transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--pink);transform:translateY(-4px)}
+.card .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;background:linear-gradient(135deg,var(--violet),var(--pink));margin-bottom:14px}
+.card h3{font-size:1.15rem;margin-bottom:6px}
+.card p{color:var(--mute);font-size:.95rem}
+
+.price{position:relative;display:flex;flex-direction:column}
+.price .amt{font-size:2.2rem;font-weight:700;margin:6px 0}
+.price .amt small{font-size:.9rem;color:var(--mute);font-weight:300}
+.price ul{list-style:none;padding:0;margin:12px 0 22px;color:var(--mute);font-size:.95rem;flex:1}
+.price li{padding:5px 0;border-bottom:1px dashed #4c2fb066}
+.price li::before{content:"✓";color:var(--pink);margin-inline-end:8px}
+.price.hot{border-color:var(--pink);box-shadow:0 0 40px #e879f933}
+.tag{position:absolute;top:-13px;inset-inline-start:22px;background:var(--pink);color:#2a0a55;font-size:.8rem;font-weight:700;padding:2px 14px;border-radius:99px}
+
+.perm{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+.panel{background:#1d0a52;border:1px solid var(--line);border-radius:20px;padding:24px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{padding:7px 16px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--lav);font:inherit;font-size:.9rem;cursor:pointer;transition:.2s}
+.chip:hover,.chip.on{background:var(--violet);color:#fff;border-color:var(--violet)}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.plist label{display:flex;gap:8px;align-items:center;padding:9px 12px;border-radius:12px;background:#2a117088;cursor:pointer;font-size:.92rem;border:1px solid transparent;transition:.2s}
+.plist label:hover{border-color:var(--line)}
+.plist input{accent-color:var(--pink);width:16px;height:16px}
+.plist label.danger span{color:#fda4af}
+.out label{display:block;font-size:.88rem;color:var(--mute);margin:12px 0 6px}
+.out input{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;direction:ltr;text-align:left}
+.num{font-size:2rem;font-weight:700;color:var(--pink);direction:ltr;text-align:left;word-break:break-all}
+.note{font-size:.85rem;color:var(--mute);margin-top:12px}
+@media(max-width:860px){.perm{grid-template-columns:1fr}}
+
+details{background:#2a117088;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--mute);margin-top:8px}
+footer{border-top:1px solid #4c2fb055;padding:34px 0;color:var(--mute);text-align:center;font-size:.9rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:var(--pink);color:#2a0a55;padding:10px 22px;border-radius:12px;font-weight:600;transition:transform .3s;z-index:50}
+.toast.show{transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+
+[hidden]{display:none!important}
+.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}
+.user{display:flex;align-items:center;gap:10px}
+.user img{width:34px;height:34px;border-radius:50%;border:2px solid var(--pink)}
+.badge{font-size:.75rem;padding:2px 12px;border-radius:99px;background:var(--violet);color:#fff;white-space:nowrap}
+.badge.owner{background:linear-gradient(135deg,#f59e0b,var(--pink))}
+.badge.admin{background:#db2777}.badge.support{background:#0891b2}.badge.closed{background:#475569}
+.btn.sm{padding:6px 14px;font-size:.85rem;border-radius:10px}
+.btn.red{background:#be123c;color:#fff}
+.field{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;margin-bottom:10px}
+textarea.field{min-height:100px;resize:vertical}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.item{background:#2a117088;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px}
+.reply{margin:8px 0;padding:8px 12px;border-radius:10px;background:#150538;border-inline-start:3px solid var(--line);font-size:.92rem}
+.reply.staff{border-color:var(--pink)}
+.reply small{color:var(--mute)}
+.modal{position:fixed;inset:0;background:#0b0221d9;display:grid;place-items:center;z-index:40;padding:16px}
+.modal .box{background:#1d0a52;border:1px solid var(--pink);border-radius:20px;padding:26px;max-width:460px;width:100%;max-height:90vh;overflow:auto}
+.pm{display:block;padding:12px 14px;margin:8px 0;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.pm small{display:block;color:var(--mute);margin-inline-start:26px}
+.pm input{accent-color:var(--pink);margin-inline-end:8px}
+.price p.d{flex:1;color:var(--mute);font-size:.95rem;margin:6px 0 18px}
+#adminLink{color:var(--pink);font-weight:600}
+@media(max-width:760px){.links{display:flex!important;gap:0}.links a:not(#adminLink){display:none}}
+.fab{position:fixed;bottom:22px;inset-inline-end:22px;width:58px;height:58px;border-radius:50%;border:0;font-size:1.5rem;cursor:pointer;background:linear-gradient(135deg,var(--violet),var(--pink));box-shadow:0 8px 28px #7c3aed88;z-index:35;transition:transform .2s}
+.fab:hover{transform:scale(1.08)}
+.fab i,.dot{background:#f43f5e}
+.fab i{position:absolute;top:3px;inset-inline-end:3px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bg)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline-start:8px}
+.chatbox{position:fixed;bottom:92px;inset-inline-end:22px;width:min(360px,calc(100vw - 32px));height:460px;max-height:calc(100vh - 120px);z-index:35;background:#1d0a52;border:1px solid var(--pink);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px #000a}
+.chat-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:linear-gradient(135deg,var(--violet),#a21caf)}
+.chat-h .x{background:none;border:0;color:#fff;font-size:1.1rem;cursor:pointer}
+.chat-b{display:flex;flex-direction:column;overflow-y:auto;padding:12px;background:#150538;border-radius:14px}
+.chatbox .chat-b{flex:1;border-radius:0}
+.chat-f{display:flex;gap:8px;padding:10px;align-items:center}
+.chat-f .field{margin:0;flex:1}
+.msg{max-width:82%;padding:8px 12px;border-radius:14px;margin:4px 0;font-size:.92rem;word-break:break-word;white-space:pre-wrap}
+.msg small{display:block;opacity:.7;font-size:.72rem}
+.msg time{display:block;opacity:.6;font-size:.7rem;margin-top:2px}
+.msg.me{align-self:flex-start;background:var(--violet)}
+.msg.them{align-self:flex-end;background:#2a1170;border:1px solid var(--line)}
+.chatgrid{display:grid;grid-template-columns:240px 1fr;gap:14px}
+#chList{max-height:420px;overflow:auto}
+.citem{padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer}
+.citem.on{border-color:var(--pink)}
+.citem small{display:block;color:var(--mute);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.chatgrid .chat-b{height:340px;margin-bottom:10px}
+@media(max-width:700px){.chatgrid{grid-template-columns:1fr}}
+.badge.owner{background:#ea580c}
+.badge.founder{background:linear-gradient(135deg,#f59e0b,#ef4444,#e879f9);box-shadow:0 0 14px #f59e0b77}
+.badge.banned{background:#be123c}
+.ban{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;text-align:center;background:radial-gradient(60vw 60vw at 50% 0%,#7f1d3d 0%,transparent 60%),#150538}
+.ban-box{max-width:480px;background:#1d0a52;border:1px solid #be123c;border-radius:24px;padding:36px 28px;box-shadow:0 0 60px #be123c44}
+.ban-ic{font-size:3.4rem;line-height:1.2}
+.ban-box h2{color:#fda4af;margin:6px 0 10px}
+.ban-box p{color:var(--mute)}
+.ban-box small{display:block;margin-top:14px;color:var(--lav)}
+.visit-fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;background:#1d0a52ee;backdrop-filter:blur(8px);border:1px solid var(--pink);box-shadow:0 8px 28px #7c3aed66;direction:ltr}
+.visit-fab i{width:9px;height:9px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:pulse 1.6s infinite}
+.visit-fab b{color:var(--pink);font-variant-numeric:tabular-nums}
+.visit-fab small{color:var(--mute)}
+@keyframes pulse{50%{opacity:.3}}
+.online{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#2a117088;border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:12px 0 16px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#150538;border:1px solid var(--line);border-radius:99px;padding:3px 12px 3px 4px;font-size:.88rem}
+.pill img{width:22px;height:22px;border-radius:50%}
+.card.price s{color:var(--mute);font-size:1.1rem;margin-inline-end:6px}
+.tag.sale{inset-inline-start:auto;inset-inline-end:22px;background:#f43f5e;color:#fff}
+.gift{background:linear-gradient(135deg,#7c3aed33,#e879f933);border:1px dashed var(--pink);border-radius:12px;padding:6px 12px;margin:6px 0 2px;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="#top" class="brand"><img id="navLogo" alt=""><span id="brandName">BOTAURA</span></a>
+  <div class="links"><a href="#services">الخدمات</a><a href="#pricing">المنتجات</a><a href="#payments">الدفع</a><a href="#support">الدعم</a><a href="#" id="adminLink" hidden>الإدارة</a></div>
+  <div id="auth"></div>
+</div></nav>
+
+<main id="top" class="wrap">
+  <div class="hero">
+    <div>
+      <h1 id="heroTitle"></h1>
+      <p id="heroText"></p>
+      <div class="cta">
+        <a class="btn main" href="#pricing">شوف الباقات</a>
+        <a class="btn ghost" href="#support">محتاج مساعدة؟</a>
+      </div>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <defs>
+          <linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4b5fd"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+          <radialGradient id="gl"><stop offset="0" stop-color="#e879f9" stop-opacity=".35"/><stop offset="1" stop-color="#e879f9" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="195" fill="url(#gl)"/>
+        <circle cx="200" cy="200" r="185" fill="none" stroke="#a78bfa" stroke-width="3"/>
+        <g class="ring-a"><circle cx="200" cy="200" r="168" fill="none" stroke="#c4b5fd" stroke-width="10" stroke-dasharray="2 9"/></g>
+        <g class="ring-b"><circle cx="200" cy="200" r="145" fill="none" stroke="#e879f9" stroke-width="5" stroke-dasharray="60 22 14 22"/></g>
+        <circle cx="200" cy="200" r="122" fill="#1a0746" stroke="#a78bfa" stroke-width="2.5"/>
+        <g class="bob">
+          <line x1="200" y1="118" x2="200" y2="140" stroke="#c4b5fd" stroke-width="6"/>
+          <circle cx="200" cy="112" r="10" fill="#e879f9"/>
+          <rect x="140" y="140" width="120" height="96" rx="34" fill="url(#hd)"/>
+          <rect x="128" y="168" width="14" height="38" rx="6" fill="#7c3aed"/><rect x="258" y="168" width="14" height="38" rx="6" fill="#7c3aed"/>
+          <rect x="155" y="158" width="90" height="52" rx="24" fill="#1a0746" stroke="#c4b5fd" stroke-width="3"/>
+          <g class="blink"><ellipse cx="180" cy="184" rx="12" ry="14" fill="#e879f9"/><ellipse cx="220" cy="184" rx="12" ry="14" fill="#e879f9"/>
+          <circle cx="177" cy="180" r="4" fill="#fff"/><circle cx="217" cy="180" r="4" fill="#fff"/></g>
+          <path d="M184 222q16 10 32 0" fill="none" stroke="#f3eeff" stroke-width="4" stroke-linecap="round"/>
+          <rect x="182" y="236" width="36" height="14" rx="4" fill="#5b21b6"/>
+          <path d="M120 290q80-60 160 0v10H120z" fill="#6d3df0" opacity=".9"/>
+          <circle cx="200" cy="282" r="8" fill="#e879f9"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b id="statBots">0</b><small>بوت تم تسليمه</small></div>
+    <div class="stat"><b id="statServers">0</b><small>سيرفر بنتابعه</small></div>
+    <div class="stat"><b>24/7</b><small>دعم فني</small></div>
+  </div>
+
+  <section id="services">
+    <h2 id="servicesTitle"></h2>
+    <p class="sub" id="servicesSub"></p>
+    <div class="grid" id="svcGrid"></div>
+  </section>
+
+  <section id="pricing">
+    <h2>المنتجات</h2>
+    <p class="sub">اختار المنتج واضغط اشتري. لازم تسجّل دخول بحساب جوجل.</p>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section id="payments">
+    <h2>طرق الدفع</h2>
+    <p class="sub">الدفع يدوي: حوّل المبلغ بأي طريقة من دول، وأكّد الطلب في الموقع، والإدارة بتفعّله بعد التأكد.</p>
+    <div class="grid" id="payList"></div>
+  </section>
+
+  <section id="support">
+    <h2>الدعم الفني والبلاغات</h2>
+    <p class="sub">ابعت طلب دعم أو بلاغ وتابع الرد من هنا.</p>
+    <div class="perm">
+      <div class="panel">
+        <div id="tkLogin"><p class="note" style="margin:0 0 14px">لازم تسجّل دخول الأول عشان تبعت طلب.</p><button class="btn main" data-login>تسجيل الدخول بجوجل</button></div>
+        <div id="tkForm" hidden>
+          <select class="field" id="tkType"><option value="support">طلب دعم فني</option><option value="report">بلاغ</option></select>
+          <input class="field" id="tkSubject" placeholder="العنوان" maxlength="100">
+          <textarea class="field" id="tkMsg" placeholder="اشرح المشكلة أو البلاغ بالتفصيل" maxlength="1500"></textarea>
+          <button class="btn main" id="tkSend">إرسال</button>
+        </div>
+        <div id="myOrders" style="margin-top:22px"></div>
+      </div>
+      <div class="panel"><h3 style="margin-bottom:14px">تذاكري</h3><div id="myTickets"><p class="note">سجّل دخول لعرض تذاكرك.</p></div></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>أسئلة شائعة</h2><div style="height:18px"></div>
+    <div id="faqList"></div>
+  </section>
+
+  <section id="contact" style="text-align:center">
+    <h2 id="contactTitle">جاهز نبدأ؟</h2>
+    <p class="sub" id="contactText" style="margin:0 auto 24px">ادخل سيرفر الدعم وقولنا إنت محتاج إيه.</p>
+    <a class="btn main" data-discord target="_blank" rel="noopener" href="#">ادخل سيرفر ديسكورد</a>
+  </section>
+</main>
+
+<main id="adminMain" class="wrap" hidden>
+  <section id="panel">
+    <h2>الإدارة</h2>
+    <div class="online" id="onlineBar"></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="panel" id="tabBody"></div>
+  </section>
+</main>
+
+<footer>© <span id="yr"></span> <span id="brandFoot">BOTAURA</span>، بوتات ديسكورد</footer>
+<div class="visit-fab" id="visitsBox" hidden><i></i><b id="visits">...</b><small>زيارة</small></div>
+<div class="ban" id="banScreen" hidden>
+  <div class="ban-box">
+    <div class="ban-ic">🚫</div>
+    <h2>حسابك محظور</h2>
+    <p>إنت متبند من الموقع. لو شايف إن ده حصل بالغلط، تواصل مع الإدارة عبر ديسكورد.</p>
+    <small id="banMail" dir="ltr"></small>
+    <div class="row" style="justify-content:center;margin-top:22px">
+      <a class="btn main" data-discord target="_blank" rel="noopener" href="#">تواصل مع الإدارة على ديسكورد</a>
+      <button class="btn ghost" id="banLogout">تسجيل الخروج</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="modal" hidden><div class="box" id="modalBox"></div></div>
+<div class="toast" id="toast">تم النسخ</div>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('navLogo').src = document.querySelector('link[rel=icon]').href;</script>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,addDoc,deleteDoc,collection,onSnapshot,query,where,serverTimestamp,increment,arrayUnion,orderBy,getDocs,limit,runTransaction,deleteField} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAZTIyC_c3HS3aEbNMd3puGR6noNcTXkAw",
+  authDomain: "aurabots-d7cbf.firebaseapp.com",
+  projectId: "aurabots-d7cbf",
+  storageBucket: "aurabots-d7cbf.firebasestorage.app",
+  messagingSenderId: "776275159117",
+  appId: "1:776275159117:web:8d1691ff05918661b01404"
+};
+const FOUNDER_EMAIL = "barqelhadidy@gmail.com";
+
+const ok = !firebaseConfig.apiKey.startsWith("PASTE");
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = n => Number(n).toLocaleString("ar-EG");
+const RANK = {banned:-1, buyer:0, support:1, admin:2, owner:3, founder:4};
+const assignable = () => role === "founder" ? ["buyer","support","admin","owner","banned"] : role === "owner" ? ["buyer","support","admin","banned"] : ["buyer","support","banned"];
+const ROLE_AR = {buyer:"مشتري", support:"دعم فني", admin:"أدمن", owner:"أونر", founder:"👑 المالك", banned:"🚫 محظور"};
+const ORDER_AR = {pending:"في انتظار الاستلام", processing:"تم الاستلام · جاري التنفيذ", paid:"تم الدفع", done:"تم التسليم", cancelled:"ملغي"};
+const listE = s => s.docs.map(d => ({id:d.id, ...d.data({serverTimestamps:"estimate"})}));
+const hm = t => { const v = t?.toMillis?.() ?? t ?? 0; return v ? new Date(v).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"}) : ""; };
+const ms = t => t?.toMillis?.() ?? t ?? 0;
+const say = m => { const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 2600); };
+const run = fn => fn().catch(e => { console.error(e); const c = e.code || e.message; say(c === "permission-denied" ? "ممنوع (permission-denied): اتأكد إنك نشرت آخر قواعد Firestore" : "ما نفعش: " + c); });
+const safeSet = (el, html) => { if (el.contains(document.activeElement) && document.activeElement.value) return; el.innerHTML = html; };
+
+const DEF_PRODUCTS = [
+  {id:"d1", name:"بوت جاهز", desc:"اختيار بوت من القوالب وإضافته لسيرفرك مع شرح الاستخدام.", price:150},
+  {id:"d2", name:"بوت مخصص", desc:"مزايا حسب طلبك، اسم وصورة خاصة، واستضافة شهر.", price:500, hot:true},
+  {id:"d3", name:"دعم فني شهري", desc:"صيانة وتحديث البوت ومساعدة في ضبط السيرفر.", price:100}
+];
+const DEF_PAY = [
+  {name:"فودافون كاش", details:"لسه ما اتضافش"},
+  {name:"إنستاباي", details:"لسه ما اتضافش"}
+];
+
+const DEF_SITE = {
+  brandName:"BOTAURA",
+  heroTitle:"بوتات ديسكورد تخلّي سيرفرك يشتغل لوحده", heroHighlight:"سيرفرك",
+  heroText:"بنصمم ونبيع بوتات جاهزة ومخصصة، ونتابع سيرفرك بدعم فني سريع. تختار الباقة، ونسلّمك البوت شغّال.",
+  discord:"https://discord.gg/PUT_YOUR_INVITE",
+  botsCount:120, serversCount:85,
+  servicesTitle:"إيه اللي بنقدمه؟", servicesSub:"كل خدمة بتغطي جزء من شغل السيرفر، وتقدر تجمع أكتر من واحدة.",
+  services:[
+    {icon:"🛡️", title:"بوتات حماية وإدارة", text:"حظر تلقائي للسبام والروابط، سجل أحداث، ورتب تلقائية للأعضاء الجدد."},
+    {icon:"🎫", title:"نظام تذاكر", text:"أعضاؤك يفتحوا تذكرة دعم بضغطة زر، والفريق يستلمها ويقفلها وتتحفظ نسخة منها."},
+    {icon:"🎵", title:"بوتات موسيقى", text:"تشغيل من يوتيوب وسبوتيفاي، قائمة انتظار، وتحكم كامل بالأوامر أو الأزرار."},
+    {icon:"⚙️", title:"بوت مخصص", text:"عندك فكرة؟ نبرمج بوت بمزايا خاصة بسيرفرك، اقتصاد، مستويات، ألعاب وغيره."},
+    {icon:"🧰", title:"ضبط السيرفر", text:"تنظيم القنوات والرتب والصلاحيات وتصميم شكل السيرفر من الصفر."},
+    {icon:"💬", title:"دعم فني مستمر", text:"صيانة وتحديثات وإصلاح أعطال البوت، وحد يرد عليك بسرعة."}
+  ],
+  faq:[
+    {q:"أستلم البوت إزاي؟", a:"بنضيفه لسيرفرك بنفسنا، أو نسلمك التوكن والملفات لو الاستضافة عندك."},
+    {q:"مدة التسليم قد إيه؟", a:"البوتات الجاهزة في نفس اليوم، والمخصصة من يومين لأسبوع حسب التعقيد."},
+    {q:"لو البوت وقف أو فيه مشكلة؟", a:"باقة الدعم الفني بتغطي الإصلاح والتحديث، وبنرد عليك في أسرع وقت."}
+  ],
+  contactTitle:"جاهز نبدأ؟", contactText:"ادخل سيرفر الدعم وقولنا إنت محتاج إيه."
+};
+
+const BOOT_RAW = "__BOOT__";
+const BOOT = typeof BOOT_RAW === "object" && BOOT_RAW ? BOOT_RAW : null;
+
+let site = BOOT && BOOT.site ? {...DEF_SITE, ...BOOT.site} : DEF_SITE, siteEdit = null;
+let auth, db, user = null, role = "buyer", unsubs = [];
+let productsReady = !!BOOT;
+let products = BOOT && BOOT.products ? BOOT.products : [], pay = BOOT && BOOT.pay ? BOOT.pay : DEF_PAY, payEdit = [];
+let myTickets = [], myOrders = [], staffTickets = [], orders = [], usersList = [], curTab = "tickets";
+let grants = [], roomMsgs = [], online = [], orderFilter = "all";
+
+if (ok) { const app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app); }
+
+async function login() {
+  if (!ok) return say("لازم تربط Firebase الأول (شوف التعليمات)");
+  const p = new GoogleAuthProvider(); p.setCustomParameters({prompt:"select_account"});
+  try { await signInWithPopup(auth, p); }
+  catch (e) {
+    if (e.code === "auth/popup-blocked") signInWithRedirect(auth, p);
+    else if (e.code !== "auth/popup-closed-by-user") say("فشل تسجيل الدخول: " + e.code);
+  }
+}
+
+function renderAuth() {
+  $("auth").innerHTML = user
+    ? `<div class="user"><img src="${esc(user.photoURL||"")}" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'"><span class="badge ${role}">${ROLE_AR[role]}</span><button class="btn ghost sm" id="logout">خروج</button></div>`
+    : `<button class="btn main" data-login>تسجيل الدخول</button>`;
+  $("visitsBox").hidden = !(user && RANK[role] >= 2);
+}
+const curProducts = () => !productsReady ? [] : products.length ? products : DEF_PRODUCTS;
+const discActive = p => Number(p.discountValue) > 0 && !!p.discountType && (!p.discountEnds || ms(p.discountEnds) > Date.now());
+const finalPrice = p => {
+  const base = Number(p.price) || 0; if (!discActive(p)) return base;
+  const v = Number(p.discountValue), f = p.discountType === "percent" ? base * (1 - Math.min(v, 100) / 100) : base - v;
+  return Math.max(0, Math.round(f * 100) / 100);
+};
+const discLabel = p => p.discountType === "percent" ? `خصم ${num(p.discountValue)}%` : `خصم ${num(p.discountValue)} ج.م`;
+const fmtDate = t => new Date(ms(t)).toLocaleString("ar-EG", {dateStyle:"medium", timeStyle:"short"});
+function renderProducts() {
+  $("products").innerHTML = curProducts().map(p => {
+    const act = discActive(p);
+    return `<div class="card price ${p.hot?"hot":""}">${p.hot?'<span class="tag">الأكثر طلباً</span>':""}${act?`<span class="tag sale">${discLabel(p)}</span>`:""}<h3>${esc(p.name)}</h3><div class="amt">${act?`<s>${num(p.price)}</s>`:""}${num(finalPrice(p))} <small>ج.م</small></div>${act&&p.discountEnds?`<small class="note" style="margin-top:-4px">العرض ينتهي ${fmtDate(p.discountEnds)}</small>`:""}${p.giftName?`<div class="gift">🎁 هدية مجانية: <b>${esc(p.giftName)}</b></div>`:""}<p class="d">${esc(p.desc)}</p><button class="btn ${p.hot?"main":"ghost"}" data-buy="${esc(p.id)}">اشتري</button></div>`;
+  }).join("");
+}
+function renderPayments() {
+  $("payList").innerHTML = pay.map(m => `<div class="card"><div class="ic">💳</div><h3>${esc(m.name)}</h3><p style="direction:ltr;text-align:right">${esc(m.details)}</p></div>`).join("");
+}
+function ticketHTML(t, staff) {
+  return `<div class="item"><div class="row" style="justify-content:space-between"><b>${esc(t.subject)}</b><span class="badge ${t.status==="open"?"":"closed"}">${t.type==="report"?"بلاغ":"دعم"} · ${t.status==="open"?"مفتوحة":"مغلقة"}</span></div>${staff?`<small class="note">${esc(t.name)} · ${esc(t.email)}</small>`:""}<p style="margin:8px 0">${esc(t.message)}</p>${(t.replies||[]).map(r=>`<div class="reply ${r.staff?"staff":""}"><small>${esc(r.name)} (${ROLE_AR[r.role]||""})</small><div>${esc(r.text)}</div></div>`).join("")}<div class="row"><input class="field" style="flex:1;margin:0" data-rt="${t.id}" placeholder="اكتب رد"><button class="btn main sm" data-reply="${t.id}">رد</button>${staff?`<button class="btn ghost sm" data-toggle="${t.id}">${t.status==="open"?"إغلاق":"إعادة فتح"}</button>`:""}${staff&&RANK[role]>=4?`<button class="btn red sm" data-delt="${t.id}">حذف</button>`:""}</div></div>`;
+}
+const byNew = (a, b) => ms(b.createdAt) - ms(a.createdAt);
+function renderSupport() {
+  $("tkLogin").hidden = !!user; $("tkForm").hidden = !user;
+  safeSet($("myTickets"), !user ? '<p class="note">سجّل دخول لعرض تذاكرك.</p>' : ([...myTickets].sort(byNew).map(t=>ticketHTML(t,false)).join("") || '<p class="note">مفيش تذاكر لسه.</p>'));
+  $("myOrders").innerHTML = user && myOrders.length ? `<h3 style="margin-bottom:10px">طلباتي</h3>` + [...myOrders].sort(byNew).map(o => `<div class="item"><div class="row" style="justify-content:space-between"><b>${esc(o.productName)} · ${num(o.price)} ج.م</b><span class="badge ${o.status==="cancelled"?"closed":""}">${ORDER_AR[o.status]||o.status}</span></div><small class="note">${sid(o.id)} · ${esc(o.method)}${o.giftName?" · 🎁 هدية: "+esc(o.giftName):""}${o.claimedByName?" · ✅ استلمه: "+esc(o.claimedByName):" · في انتظار استلام فريقنا"}</small><div class="row" style="margin-top:8px"><button class="btn main sm" data-oc="${o.id}">💬 تواصل بخصوص الطلب${attn(o)?'<i class="dot"></i>':""}</button></div></div>`).join("") : "";
+  const nAttn = user ? myOrders.filter(attn).length : 0, sl = document.querySelector('.links a[href="#support"]');
+  if (sl) sl.textContent = "الدعم" + (nAttn ? ` (${num(nAttn)})` : "");
+}
+
+const TABS = [["tickets","استقبال التذاكر",1],["orders","استقبال الطلبات",2],["room","تواصل الإدارة",1],["products","إضافة المنتجات",3],["payments","طرق الدفع",3],["perms","الصلاحيات",2],["site","إعدادات الموقع",4]];
+const counts = () => ({
+  tickets: staffTickets.filter(x => x.status === "open").length,
+  orders: orders.filter(x => x.status === "pending" || x.lastFrom === "user").length,
+  room: roomUnread()
+});
+function renderPanel(force) {
+  const r = user ? RANK[role] : -1;
+  const c = counts();
+  const total = c.tickets + (r >= 2 ? c.orders : 0) + c.room;
+  $("adminLink").hidden = r < 1;
+  $("adminLink").textContent = "الإدارة" + (total && r >= 1 ? ` (${num(total)})` : "");
+  if (r < 1) { if (!$("adminMain").hidden) showAdmin(false); return; }
+  const allowed = TABS.filter(t => r >= t[2]);
+  if (!allowed.find(t => t[0] === curTab)) curTab = allowed[0][0];
+  $("tabs").innerHTML = allowed.map(t => `<button class="chip ${t[0]===curTab?"on":""}" data-tab="${t[0]}">${t[1]}${c[t[0]]?` (${num(c[t[0]])})`:""}</button>`).join("");
+  renderTab(force);
+}
+function renderTab(force) {
+  const el = $("tabBody");
+  if (!force && el.contains(document.activeElement) && document.activeElement.value) return;
+  el.innerHTML = ({tickets:tabTickets, orders:tabOrders, room:tabRoom, products:tabProducts, payments:tabPayments, perms:tabPerms, site:tabSite}[curTab])();
+  if (curTab === "room") updateRoom();
+}
+const empty = '<p class="note">مفيش حاجة لسه.</p>';
+function tabTickets() {
+  return [...staffTickets].sort((a,b)=>(a.status===b.status?0:a.status==="open"?-1:1)||byNew(a,b)).map(t=>ticketHTML(t,true)).join("") || empty;
+}
+const sid = id => "#" + String(id).slice(0, 6).toUpperCase();
+const seenOC = id => { try { return +localStorage.getItem("ba_oc_" + user.uid + "_" + id) || 0; } catch (_) { return 0; } };
+const attn = o => !!user && ((o.lastFrom === "staff" && ms(o.lastMsgAt) > seenOC(o.id)) || (!!o.claimedAt && ms(o.claimedAt) > seenOC(o.id)));
+function tabOrders() {
+  const keys = ["all", ...Object.keys(ORDER_AR)];
+  const cnt = s => s === "all" ? orders.length : orders.filter(o => o.status === s).length;
+  const chips = keys.map(s => `<button class="chip ${orderFilter===s?"on":""}" data-of="${s}">${s==="all"?"الكل":ORDER_AR[s]} (${num(cnt(s))})</button>`).join("");
+  const list = orders.filter(o => orderFilter === "all" || o.status === orderFilter).sort(byNew);
+  return `<div class="tabs">${chips}</div>` + (list.map(o => {
+    const mine = o.claimedBy === user.uid;
+    const claim = !o.claimedBy
+      ? `<button class="btn main sm" data-claim="${o.id}">📥 استلام الطلب</button>`
+      : `<span class="badge support">استلمه: ${esc(o.claimedByName||"")}</span>${(mine || RANK[role] >= 3) ? `<button class="btn ghost sm" data-release="${o.id}">إلغاء الاستلام</button>` : ""}`;
+    const cur = products.find(x => x.id === o.productId);
+    const extra = ((o.discountLabel || o.giftName) ? `<div class="note">${o.discountLabel?"🏷️ "+esc(o.discountLabel)+(o.giftName?" · ":""):""}${o.giftName?"🎁 هدية: "+esc(o.giftName):""}</div>` : "")
+      + (o.discordId ? `<div class="note" dir="ltr">🎮 Discord ID: ${esc(o.discordId)}</div>` : "")
+      + (cur && Number(o.price) !== finalPrice(cur) ? `<div class="note" style="color:#fbbf24">⚠️ راجع السعر: سعر المنتج الحالي ${num(finalPrice(cur))} ج.م</div>` : "");
+    return `<div class="item"><div class="row" style="justify-content:space-between"><b>${sid(o.id)} · ${esc(o.productName)} · ${num(o.price)} ج.م</b><select class="field" style="width:auto;margin:0" data-order="${o.id}">${Object.keys(ORDER_AR).map(s=>`<option value="${s}" ${o.status===s?"selected":""}>${ORDER_AR[s]}</option>`).join("")}</select></div><small class="note">${esc(o.name)} · ${esc(o.email)} · ${esc(o.method)}${o.note?" · "+esc(o.note):""}${ms(o.createdAt)?" · "+new Date(ms(o.createdAt)).toLocaleDateString("ar-EG"):""}</small>${extra}<div class="row" style="margin-top:10px">${claim}<button class="btn ghost sm" data-oc="${o.id}">💬 محادثة العميل${o.lastFrom==="user"?'<i class="dot"></i>':""}</button>${RANK[role]>=4?`<button class="btn red sm" data-delo="${o.id}">حذف</button>`:""}</div>${o.lastText?`<small class="note">آخر رسالة: ${esc(o.lastText)}</small>`:""}</div>`;
+  }).join("") || empty);
+}
+const msgHTML = (m, mine) => `<div class="msg ${mine?"me":"them"}"><small>${esc(m.name||"")}${m.role&&RANK[m.role]>=1?" · "+ROLE_AR[m.role]:""}</small>${esc(m.text)}<time>${hm(m.createdAt)}</time></div>`;
+function tabRoom() {
+  return `<div id="roomThr" class="chat-b" style="height:360px;margin-bottom:10px"></div><div class="row"><input class="field" id="roomIn" style="flex:1;margin:0" maxlength="1000" placeholder="اكتب رسالة لفريق الإدارة"><button class="btn main sm" id="roomSend">إرسال</button>${RANK[role]>=4?'<button class="btn red sm" id="roomClear">مسح الشات</button>':""}</div>`;
+}
+function updateRoom() {
+  const t = $("roomThr"); if (!t) return;
+  t.innerHTML = roomMsgs.map(m => msgHTML(m, m.uid === user.uid)).join("") || '<p class="note" style="text-align:center">ابدأ المحادثة مع فريق الإدارة.</p>';
+  t.scrollTop = t.scrollHeight;
+  if (curTab === "room" && !$("adminMain").hidden && roomUnread()) {
+    try { localStorage.setItem("ba_room_" + user.uid, String(Date.now())); } catch (_) {}
+    renderPanel();
+  }
+}
+function tabPerms() {
+  const opts = assignable();
+  const known = new Set(usersList.map(u => (u.email || "").toLowerCase()));
+  const pending = grants.filter(g => !known.has(g.id));
+  const form = `<div class="item"><b>توظيف / إعطاء صلاحية</b><p class="note" style="margin:4px 0 12px">اكتب جيميل الشخص واختار صلاحيته. لو ما سجّلش دخول لسه، الصلاحية بتتفعّل أول ما يسجّل.${role==="admin"?" الأدمن يقدر يعيّن مشتري أو دعم فني فقط.":""}</p><div class="row"><input class="field" id="pmEmail" type="email" dir="ltr" placeholder="name@gmail.com" style="flex:2;margin:0"><select class="field" id="pmRole" style="flex:1;margin:0">${opts.map(r=>`<option value="${r}">${ROLE_AR[r]}</option>`).join("")}</select><button class="btn main" id="assignBtn">تعيين</button></div><input class="field" id="pmDiscord" inputmode="numeric" dir="ltr" maxlength="20" placeholder="Discord ID (اختياري، لإعطاء رتبة ديسكورد تلقائياً عن طريق البوت)" style="margin:10px 0 0"></div>`;
+  const members = [...usersList].sort(byNew).map(u => {
+    const can = u.id !== user.uid && opts.includes(u.role);
+    return `<div class="item row" style="justify-content:space-between"><div><b>${esc(u.name||"بدون اسم")}</b><br><small class="note">${esc(u.email)}</small></div>${can?`<div class="row"><select class="field" style="width:auto;margin:0" data-role="${u.id}">${opts.map(r=>`<option value="${r}" ${u.role===r?"selected":""}>${ROLE_AR[r]}</option>`).join("")}</select>${["support","admin","owner"].includes(u.role)?`<button class="btn red sm" data-fire="${u.id}">فصل</button>`:""}</div>`:`<span class="badge ${u.role}">${ROLE_AR[u.role]||u.role}</span>`}</div>`;
+  }).join("") || empty;
+  const wait = pending.length ? `<h3 style="margin:18px 0 10px">صلاحيات معلّقة (لسه ما سجّلوش دخول)</h3>` + pending.map(g => `<div class="item row" style="justify-content:space-between"><div dir="ltr">${esc(g.id)}</div><div class="row"><span class="badge ${g.role}">${ROLE_AR[g.role]||g.role}</span>${RANK[role]>=3?`<button class="btn red sm" data-delgrant="${esc(g.id)}">حذف</button>`:""}</div></div>`).join("") : "";
+  return form + `<h3 style="margin:18px 0 10px">الأعضاء</h3>` + members + wait;
+}
+function tabSite() {
+  if (!siteEdit) siteEdit = JSON.parse(JSON.stringify(site));
+  const s = siteEdit;
+  const f = (k, label, o = {}) => `<label class="note">${label}</label>` + (o.area ? `<textarea class="field" data-sk="${k}">${esc(s[k])}</textarea>` : `<input class="field" data-sk="${k}" type="${o.type||"text"}" value="${esc(s[k])}"${o.ltr?' dir="ltr"':""}>`);
+  const svc = s.services.map((v, i) => `<div class="item"><div class="row"><input class="field" style="width:70px;margin:0;text-align:center" data-sa="services" data-si="${i}" data-sf="icon" value="${esc(v.icon)}" placeholder="🙂"><input class="field" style="flex:1;margin:0" data-sa="services" data-si="${i}" data-sf="title" value="${esc(v.title)}" placeholder="اسم الخدمة"><button class="btn red sm" data-dela="services:${i}">حذف</button></div><textarea class="field" style="margin:8px 0 0" data-sa="services" data-si="${i}" data-sf="text" placeholder="وصف الخدمة">${esc(v.text)}</textarea></div>`).join("");
+  const faq = s.faq.map((v, i) => `<div class="item"><div class="row"><input class="field" style="flex:1;margin:0" data-sa="faq" data-si="${i}" data-sf="q" value="${esc(v.q)}" placeholder="السؤال"><button class="btn red sm" data-dela="faq:${i}">حذف</button></div><textarea class="field" style="margin:8px 0 0" data-sa="faq" data-si="${i}" data-sf="a" placeholder="الإجابة">${esc(v.a)}</textarea></div>`).join("");
+  return `<p class="note" style="margin-top:0">أي تعديل هنا بيظهر في الموقع بعد ما تضغط "حفظ الموقع".</p>`
+   + `<div class="item"><b>الصفحة الرئيسية</b>` + f("brandName","اسم الموقع") + f("heroTitle","العنوان الرئيسي") + f("heroHighlight","الكلمة الملوّنة داخل العنوان (اختياري)") + f("heroText","النص تحت العنوان",{area:1}) + f("discord","رابط سيرفر ديسكورد",{ltr:1}) + `<div class="row"><div style="flex:1">${f("botsCount","عدد البوتات المسلّمة",{type:"number"})}</div><div style="flex:1">${f("serversCount","عدد السيرفرات",{type:"number"})}</div></div></div>`
+   + `<div class="item"><b>الخدمات</b>` + f("servicesTitle","عنوان القسم") + f("servicesSub","وصف القسم") + `<div style="height:8px"></div>` + svc + `<button class="btn ghost sm" data-adda="services">+ إضافة خدمة</button></div>`
+   + `<div class="item"><b>الأسئلة الشائعة</b><div style="height:8px"></div>` + faq + `<button class="btn ghost sm" data-adda="faq">+ إضافة سؤال</button></div>`
+   + `<div class="item"><b>قسم التواصل</b>` + f("contactTitle","العنوان") + f("contactText","النص") + `</div>`
+   + `<div class="row"><button class="btn main" id="saveSite">حفظ الموقع</button><button class="btn ghost" id="resetSite">رجوع للافتراضي</button><button class="btn red" id="resetVisits">تصفير عداد الزيارات</button></div>`;
+}
+const typeOpts = sel => [["","بدون خصم"],["percent","نسبة %"],["fixed","مبلغ ثابت (ج.م)"]].map(([v, l]) => `<option value="${v}" ${sel===v?"selected":""}>${l}</option>`).join("");
+const giftOpts = (sel, ex) => `<option value="">بدون هدية</option>` + products.filter(x => x.id !== ex).map(x => `<option value="${esc(x.id)}" ${sel===x.id?"selected":""}>${esc(x.name)}</option>`).join("");
+const toLocalInput = t => { const v = ms(t); if (!v) return ""; return new Date(v - new Date(v).getTimezoneOffset() * 60000).toISOString().slice(0, 16); };
+function offerFields(p, ex) {
+  return `<div class="row" style="margin:8px 0;align-items:flex-end"><div style="flex:1;min-width:130px"><label class="note">الخصم</label><select class="field" style="margin:0" data-pf="discountType">${typeOpts(p.discountType||"")}</select></div><div style="flex:1;min-width:100px"><label class="note">قيمة الخصم</label><input class="field" style="margin:0" type="number" min="0" data-pf="discountValue" value="${esc(p.discountValue||"")}"></div><div style="flex:1.4;min-width:190px"><label class="note">ينتهي (اختياري)</label><input class="field" style="margin:0" type="datetime-local" data-pf="discountEnds" value="${toLocalInput(p.discountEnds)}"></div><div style="flex:1.4;min-width:170px"><label class="note">🎁 منتج هدية</label><select class="field" style="margin:0" data-pf="giftId">${giftOpts(p.giftId||"", ex)}</select></div></div>`;
+}
+function readProduct(row) {
+  const g = k => row.querySelector(`[data-pf="${k}"]`);
+  const name = g("name").value.trim(), ps = g("price").value, price = Number(ps);
+  if (!name || ps === "" || !(price >= 0)) { say("اكتب الاسم والسعر"); return null; }
+  const dt = g("discountType").value, dv = Number(g("discountValue").value) || 0;
+  if (dt && !(dv > 0)) { say("اكتب قيمة الخصم"); return null; }
+  if (dt === "percent" && dv > 100) { say("النسبة لازم تكون بين 1 و100"); return null; }
+  if (dt === "fixed" && dv > price) { say("الخصم أكبر من السعر"); return null; }
+  const ev = g("discountEnds").value, ends = dt && ev ? new Date(ev).getTime() : 0;
+  const gp = products.find(x => x.id === g("giftId").value);
+  return {name, price, desc:g("desc").value.trim(), hot:g("hot").checked, discountType:dt, discountValue:dt?dv:0, discountEnds:ends, giftId:gp?gp.id:"", giftName:gp?gp.name:""};
+}
+function tabProducts() {
+  const newForm = `<div class="item" id="newP"><b>منتج جديد</b><div class="row" style="margin-top:8px"><input class="field" style="flex:2;margin:0" data-pf="name" placeholder="اسم المنتج"><input class="field" style="flex:1;margin:0" data-pf="price" type="number" min="0" placeholder="السعر بالجنيه"></div><textarea class="field" data-pf="desc" style="margin:8px 0" placeholder="وصف المنتج"></textarea><label class="note"><input type="checkbox" data-pf="hot"> علامة "الأكثر طلباً"</label>${offerFields({}, "")}<button class="btn main" id="addProduct">إضافة المنتج</button></div>`;
+  const rows = products.map(p => `<div class="item" data-pid="${p.id}"><div class="row"><input class="field" style="flex:2;margin:0" data-pf="name" value="${esc(p.name)}"><input class="field" style="flex:1;margin:0" data-pf="price" type="number" min="0" value="${esc(p.price)}"><label class="note"><input type="checkbox" data-pf="hot" ${p.hot?"checked":""}> الأكثر طلباً</label></div><textarea class="field" data-pf="desc" style="margin:8px 0">${esc(p.desc)}</textarea>${offerFields(p, p.id)}<div class="row"><button class="btn main sm" data-savep="${p.id}">حفظ</button><button class="btn red sm" data-delp="${p.id}">حذف</button>${discActive(p)?`<span class="badge">السعر النهائي ${num(finalPrice(p))} ج.م</span>`:""}</div></div>`).join("");
+  return `<p class="note" style="margin-top:0">الخصم بيتوقف لوحده بعد تاريخ الانتهاء. المنتج الهدية بيظهر على الكارت وبيتسجل في الطلب.</p>` + newForm + `<h3 style="margin:18px 0 10px">المنتجات الحالية</h3>` + (rows || '<p class="note">مفيش منتجات مضافة، الموقع بيعرض منتجات تجريبية لحد ما تضيف.</p>');
+}
+function tabPayments() {
+  return payEdit.map((m,i)=>`<div class="row"><input class="field" style="flex:1" data-pi="${i}" data-f="name" value="${esc(m.name)}" placeholder="الاسم (مثلاً فودافون كاش)"><input class="field" style="flex:2" data-pi="${i}" data-f="details" value="${esc(m.details)}" placeholder="الرقم أو التفاصيل"><button class="btn red sm" data-delpay="${i}" style="margin-bottom:10px">حذف</button></div>`).join("") + `<div class="row"><button class="btn ghost" id="addPay">إضافة طريقة</button><button class="btn main" id="savePay">حفظ</button></div>`;
+}
+function renderBan() {
+  const b = !!user && role === "banned";
+  $("banScreen").hidden = !b;
+  $("banMail").textContent = b ? user.email : "";
+  document.body.style.overflow = b ? "hidden" : "";
+}
+function renderAll() { renderAuth(); renderProducts(); renderPayments(); renderSupport(); renderPanel(); renderOnline(); renderSite(); renderBan(); }
+
+function countTo(el, to, plus = true) {
+  to = Number(to) || 0;
+  if (el.dataset.v === String(to)) return;
+  const from = Number(el.dataset.v) || 0;
+  el.dataset.v = String(to);
+  const t0 = performance.now();
+  const step = t => { const k = Math.min(1, (t - t0) / 900); el.textContent = num(Math.round(from + (to - from) * k)) + (k === 1 && to && plus ? "+" : ""); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function renderSite() {
+  const s = site, t = esc(s.heroTitle), hl = esc(s.heroHighlight || "");
+  $("brandName").textContent = s.brandName; $("brandFoot").textContent = s.brandName;
+  document.title = s.brandName + " | بوتات ديسكورد ودعم فني";
+  $("heroTitle").innerHTML = hl && t.includes(hl) ? t.replace(hl, m => `<span>${m}</span>`) : t;
+  $("heroText").textContent = s.heroText;
+  document.querySelectorAll("[data-discord]").forEach(a => { a.href = s.discord || "#"; a.target = "_blank"; a.rel = "noopener"; });
+  countTo($("statBots"), s.botsCount); countTo($("statServers"), s.serversCount);
+  $("servicesTitle").textContent = s.servicesTitle; $("servicesSub").textContent = s.servicesSub;
+  $("svcGrid").innerHTML = s.services.map(v => `<div class="card"><div class="ic">${esc(v.icon)}</div><h3>${esc(v.title)}</h3><p>${esc(v.text)}</p></div>`).join("");
+  $("faqList").innerHTML = s.faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
+  $("contactTitle").textContent = s.contactTitle; $("contactText").textContent = s.contactText;
+}
+
+let presTimer = null;
+function roomUnread() {
+  if (!user || RANK[role] < 1) return 0;
+  let seen = 0; try { seen = +localStorage.getItem("ba_room_" + user.uid) || 0; } catch (_) {}
+  return roomMsgs.filter(m => m.uid !== user.uid && ms(m.createdAt) > seen).length;
+}
+async function sendRoom() {
+  const inp = $("roomIn"), text = inp.value.trim(); if (!text) return;
+  inp.value = "";
+  await addDoc(collection(db,"staffRoom"), {uid:user.uid, name:user.displayName||user.email, role, text, createdAt:serverTimestamp()});
+}
+function beat() {
+  if (!user || RANK[role] < 1 || document.visibilityState !== "visible") return;
+  setDoc(doc(db,"presence",user.uid), {name:user.displayName||user.email, role, photo:user.photoURL||"", seen:serverTimestamp()}).catch(() => {});
+}
+function startPresence() {
+  clearInterval(presTimer); beat();
+  presTimer = setInterval(() => { beat(); renderOnline(); }, 30000);
+}
+function renderOnline() {
+  const el = $("onlineBar"); if (!el) return;
+  if (!user || RANK[role] < 1) { el.innerHTML = ""; return; }
+  const now = Date.now();
+  const list = online.filter(p => now - ms(p.seen) < 90000).sort((a, b) => (RANK[b.role] ?? 0) - (RANK[a.role] ?? 0));
+  el.innerHTML = `<b>🟢 الإدارة المتصلة الآن (${num(list.length)})</b>` + (list.length
+    ? list.map(p => `<span class="pill">${p.photo ? `<img src="${esc(p.photo)}" alt="" referrerpolicy="no-referrer">` : ""}${esc(p.name)} <span class="badge ${esc(p.role)}">${ROLE_AR[p.role] || ""}</span>${p.id === user.uid ? " (إنت)" : ""}</span>`).join("")
+    : '<span class="note">مفيش حد متصل</span>');
+}
+document.addEventListener("visibilitychange", beat);
+window.addEventListener("pageshow", beat);
+window.addEventListener("pagehide", () => { if (user && RANK[role] >= 1) deleteDoc(doc(db,"presence",user.uid)).catch(() => {}); });
+
+async function saveSite() {
+  const s = siteEdit;
+  const out = {...s, botsCount:Number(s.botsCount)||0, serversCount:Number(s.serversCount)||0,
+    services:s.services.filter(v => v.title.trim()).map(v => ({icon:v.icon.trim()||"✨", title:v.title.trim(), text:v.text.trim()})),
+    faq:s.faq.filter(v => v.q.trim()).map(v => ({q:v.q.trim(), a:v.a.trim()}))};
+  for (const k of ["brandName","heroTitle","heroHighlight","heroText","discord","servicesTitle","servicesSub","contactTitle","contactText"]) out[k] = String(out[k] ?? "").trim();
+  if (!out.brandName || !out.heroTitle) return say("اسم الموقع والعنوان الرئيسي مطلوبين");
+  if (out.discord && !/^https?:\/\//.test(out.discord)) return say("رابط ديسكورد لازم يبدأ بـ https://");
+  await setDoc(doc(db,"settings","site"), out);
+  siteEdit = JSON.parse(JSON.stringify({...DEF_SITE, ...out}));
+  say("تم حفظ الموقع"); renderTab(true);
+}
+
+async function assignRole() {
+  const email = $("pmEmail").value.trim().toLowerCase(), r = $("pmRole").value;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return say("اكتب إيميل صحيح");
+  if (email === FOUNDER_EMAIL) return say("ده إيميل المالك");
+  if (!assignable().includes(r)) return say("مش مسموح لك تعيّن الصلاحية دي");
+  const u = usersList.find(x => (x.email || "").toLowerCase() === email);
+  if (u && (u.id === user.uid || !assignable().includes(u.role))) return say("مش مسموح لك تغيّر صلاحية الشخص ده");
+  const did = $("pmDiscord").value.trim();
+  if (did && !/^\d{17,20}$/.test(did)) return say("Discord ID غلط: أرقام فقط (17 لـ 20 رقم)");
+  await setDoc(doc(db,"grants",email), {role:r, by:user.email, updatedAt:serverTimestamp(), ...(did ? {discordId:did} : {})}, {merge:true});
+  if (u) await updateDoc(doc(db,"users",u.id), {role:r});
+  $("pmEmail").value = ""; $("pmDiscord").value = ""; say("تم تعيين الصلاحية: " + ROLE_AR[r]);
+}
+
+function showAdmin(on) {
+  if (on && !(user && RANK[role] >= 1)) return;
+  $("top").hidden = on; $("adminMain").hidden = !on;
+  $("adminLink").style.textDecoration = on ? "underline" : "";
+  window.scrollTo(0, 0);
+}
+
+let oc = null;
+function closeModal() { $("modal").hidden = true; if (oc) { oc.unsub(); oc = null; } renderSupport(); }
+function openOrderChat(id) {
+  const o = [...orders, ...myOrders].find(x => x.id === id); if (!o) return;
+  if (oc) oc.unsub();
+  $("modalBox").innerHTML = `<div class="row" style="justify-content:space-between"><h3>محادثة الطلب ${sid(id)}</h3><button class="btn ghost sm" data-close>✕</button></div><small class="note" id="ocSub"></small><div id="ocThr" class="chat-b" style="height:300px;margin:12px 0"></div><div class="row"><input class="field" id="ocIn" style="flex:1;margin:0" maxlength="1000" placeholder="اكتب رسالتك"><button class="btn main sm" id="ocSend">إرسال</button></div>`;
+  $("modal").hidden = false;
+  oc = {id, msgs:[], unsub:() => {}};
+  renderOCHead();
+  oc.unsub = onSnapshot(query(collection(db,"orders",id,"messages"), orderBy("createdAt")), s => { oc.msgs = listE(s); renderOC(); }, e => say(e.code === "permission-denied" ? "ممنوع: انشر آخر قواعد Firestore (firestore.rules)" : "ما نفعش: " + e.code));
+  try { localStorage.setItem("ba_oc_" + user.uid + "_" + id, String(Date.now())); } catch (_) {}
+}
+function renderOCHead() {
+  if (!oc || !$("ocSub")) return;
+  const o = [...orders, ...myOrders].find(x => x.id === oc.id); if (!o) return;
+  $("ocSub").textContent = `${o.productName} · ${ORDER_AR[o.status]||o.status}${o.claimedByName?" · استلمه: "+o.claimedByName:""}`;
+}
+function renderOC() {
+  renderOCHead();
+  const t = $("ocThr"); if (!t || !oc) return;
+  t.innerHTML = oc.msgs.map(m => msgHTML(m, m.uid === user.uid)).join("") || '<p class="note" style="text-align:center">ابدأ المحادثة بخصوص الطلب.</p>';
+  t.scrollTop = t.scrollHeight;
+}
+async function sendOC() {
+  const inp = $("ocIn"), text = inp && inp.value.trim(); if (!text || !oc) return;
+  inp.value = "";
+  const staff = RANK[role] >= 2;
+  await addDoc(collection(db,"orders",oc.id,"messages"), {uid:user.uid, name:user.displayName||user.email, role, staff, text, createdAt:serverTimestamp()});
+  await updateDoc(doc(db,"orders",oc.id), {lastFrom: staff ? "staff" : "user", lastText:text.slice(0,80), lastMsgAt:serverTimestamp()});
+}
+async function claimOrder(id) {
+  const ref = doc(db,"orders",id);
+  try {
+    await runTransaction(db, async tx => {
+      const s = await tx.get(ref);
+      if (!s.exists() || s.data().claimedBy) throw new Error("taken");
+      tx.update(ref, {status:"processing", claimedBy:user.uid, claimedByName:user.displayName||user.email, claimedAt:serverTimestamp()});
+    });
+  } catch (e) { if (e.message === "taken") return say("حد استلم الطلب قبلك"); throw e; }
+  say("تم استلام الطلب، كلّم العميل من هنا");
+  const o = orders.find(x => x.id === id); if (o) openOrderChat(id);
+}
+
+function openBuy(p) {
+  if (!user) return login();
+  const act = discActive(p), fp = finalPrice(p);
+  $("modalBox").innerHTML = `<h3>شراء: ${esc(p.name)}</h3><p>السعر: ${act?`<s style="color:var(--mute)">${num(p.price)}</s> `:""}<b>${num(fp)} ج.م</b>${act?` · ${discLabel(p)}`:""}</p>${p.giftName?`<p class="gift">🎁 معاك هدية: <b>${esc(p.giftName)}</b></p>`:""}<p class="note">اختار طريقة الدفع، حوّل المبلغ، وبعدين أكّد الطلب.</p>${pay.map((m,i)=>`<label class="pm"><input type="radio" name="pm" value="${i}" ${i===0?"checked":""}><b>${esc(m.name)}</b><small>${esc(m.details)}</small></label>`).join("")}<input class="field" id="onote" maxlength="200" placeholder="رقم العملية أو ملاحظة (اختياري)"><input class="field" id="odisc" inputmode="numeric" dir="ltr" maxlength="20" placeholder="Discord ID بتاعك (اختياري، عشان نبعتلك على ديسكورد)"><div class="row"><button class="btn main" id="confirmBuy">تأكيد الطلب</button><button class="btn ghost" data-close>إلغاء</button></div>`;
+  $("modal").hidden = false;
+  $("confirmBuy").onclick = () => run(async () => {
+    const m = pay[+document.querySelector('input[name=pm]:checked').value];
+    const did = $("odisc").value.trim();
+    if (did && !/^\d{17,20}$/.test(did)) return say("Discord ID غلط: أرقام فقط (17 لـ 20 رقم)");
+    const oref = await addDoc(collection(db,"orders"), {uid:user.uid, email:user.email, name:user.displayName||"", productId:String(p.id), productName:p.name, price:fp, listPrice:Number(p.price), giftName:p.giftName||"", discountLabel:act?discLabel(p):"", method:m.name, note:$("onote").value.trim(), ...(did ? {discordId:did} : {}), status:"pending", createdAt:serverTimestamp()});
+    $("modalBox").innerHTML = `<h3>تم تسجيل طلبك ✅</h3><p class="note">رقم الطلب ${sid(oref.id)}. في انتظار استلامه من فريقنا، وهتوصلك إشارة هنا أول ما حد يستلمه. تقدر تبعت رسالة أو إيصال الدفع من المحادثة.</p><div class="row"><button class="btn main" data-oc="${oref.id}">💬 تواصل بخصوص الطلب</button><button class="btn ghost" data-close>تمام</button></div>`;
+  });
+}
+
+document.addEventListener("click", e => {
+  const t = e.target, q = s => t.closest(s);
+  if (q("#adminLink")) { e.preventDefault(); return showAdmin(true); }
+  if (q(".links a") || q(".brand")) showAdmin(false);
+  if (q("[data-login]")) return login();
+  if (q("#logout") || q("#banLogout")) return run(async () => { try { if (user && RANK[role] >= 1) await deleteDoc(doc(db,"presence",user.uid)); } catch (_) {} await signOut(auth); });
+  if (q("[data-close]") || t === $("modal")) return closeModal();
+  if (q("#roomSend")) return run(sendRoom);
+  if (q("#roomClear")) return confirm("تمسح كل رسائل شات الإدارة؟") && run(async () => { const s = await getDocs(collection(db,"staffRoom")); await Promise.all(s.docs.map(d => deleteDoc(d.ref))); say("تم المسح"); });
+  if (q("#assignBtn")) return run(assignRole);
+  if (q("#saveSite")) return run(saveSite);
+  if (q("#resetSite")) return confirm("ترجّع كل نصوص الموقع للافتراضي؟") && run(async () => { await deleteDoc(doc(db,"settings","site")); siteEdit = null; say("تم الرجوع للافتراضي"); renderTab(true); });
+  if (q("#resetVisits")) return confirm("تصفّر عداد الزيارات؟") && run(async () => { await setDoc(doc(db,"stats","visits"), {count:0}); say("تم التصفير"); });
+  let b;
+  if (q("#ocSend")) return run(sendOC);
+  if ((b = q("[data-oc]"))) return openOrderChat(b.dataset.oc);
+  if ((b = q("[data-claim]"))) return run(() => claimOrder(b.dataset.claim));
+  if ((b = q("[data-release]"))) return confirm("تلغي استلامك للطلب؟") && run(() => updateDoc(doc(db,"orders",b.dataset.release), {status:"pending", claimedBy:deleteField(), claimedByName:deleteField(), claimedAt:deleteField()}));
+  if ((b = q("[data-fire]"))) return confirm("تفصل الموظف ده (يرجع مشتري)؟") && run(async () => {
+    const u = usersList.find(x => x.id === b.dataset.fire); if (!u) return;
+    await setDoc(doc(db,"grants",(u.email || "").toLowerCase()), {role:"buyer", by:user.email, updatedAt:serverTimestamp()}, {merge:true});
+    await updateDoc(doc(db,"users",u.id), {role:"buyer"});
+    say("تم فصل الموظف");
+  });
+  if ((b = q("[data-delt]"))) return confirm("تحذف التذكرة نهائياً؟") && run(() => deleteDoc(doc(db,"tickets",b.dataset.delt)));
+  if ((b = q("[data-delo]"))) return confirm("تحذف الطلب ومحادثته نهائياً؟") && run(async () => { const s = await getDocs(collection(db,"orders",b.dataset.delo,"messages")); await Promise.all(s.docs.map(d => deleteDoc(d.ref))); await deleteDoc(doc(db,"orders",b.dataset.delo)); });
+  if ((b = q("[data-savep]"))) return run(async () => {
+    const d = readProduct(b.closest("[data-pid]")); if (!d) return;
+    await updateDoc(doc(db,"products",b.dataset.savep), d);
+    say("تم حفظ المنتج");
+  });
+  if ((b = q("[data-adda]"))) { siteEdit[b.dataset.adda].push(b.dataset.adda === "faq" ? {q:"", a:""} : {icon:"✨", title:"", text:""}); return renderTab(true); }
+  if ((b = q("[data-dela]"))) { const [n, i] = b.dataset.dela.split(":"); siteEdit[n].splice(+i, 1); return renderTab(true); }
+  if ((b = q("[data-of]"))) { orderFilter = b.dataset.of; return renderTab(true); }
+  if ((b = q("[data-delgrant]"))) return confirm("تحذف الصلاحية المعلّقة؟") && run(() => deleteDoc(doc(db,"grants",b.dataset.delgrant)));
+  if ((b = q("[data-buy]"))) { const p = curProducts().find(x => String(x.id) === b.dataset.buy); return p && openBuy(p); }
+  if ((b = q("[data-tab]"))) { curTab = b.dataset.tab; if (curTab === "payments") payEdit = pay.map(x=>({...x})); if (curTab === "site") siteEdit = JSON.parse(JSON.stringify(site)); return renderPanel(true); }
+  if ((b = q("[data-reply]"))) return run(async () => {
+    const id = b.dataset.reply, inp = document.querySelector(`[data-rt="${id}"]`), text = inp.value.trim();
+    if (!text) return;
+    await updateDoc(doc(db,"tickets",id), {replies: arrayUnion({uid:user.uid, name:user.displayName||user.email, role, staff:RANK[role]>=1, text, at:Date.now()})});
+    inp.value = "";
+  });
+  if ((b = q("[data-toggle]"))) return run(async () => {
+    const tk = staffTickets.find(x => x.id === b.dataset.toggle);
+    await updateDoc(doc(db,"tickets",tk.id), {status: tk.status === "open" ? "closed" : "open"});
+  });
+  if (q("#addProduct")) return run(async () => {
+    const d = readProduct($("newP")); if (!d) return;
+    await addDoc(collection(db,"products"), {...d, createdAt:serverTimestamp()});
+    say("تمت إضافة المنتج"); renderTab(true);
+  });
+  if ((b = q("[data-delp]"))) return confirm("تحذف المنتج؟") && run(() => deleteDoc(doc(db,"products",b.dataset.delp)));
+  if (q("#addPay")) { payEdit.push({name:"", details:""}); return renderTab(true); }
+  if ((b = q("[data-delpay]"))) { payEdit.splice(+b.dataset.delpay, 1); return renderTab(true); }
+  if (q("#savePay")) return run(async () => {
+    const methods = payEdit.filter(m => m.name.trim()).map(m => ({name:m.name.trim(), details:m.details.trim()}));
+    await setDoc(doc(db,"settings","payments"), {methods}); say("تم الحفظ");
+  });
+  if (q("#tkSend")) return run(async () => {
+    const subject = $("tkSubject").value.trim(), message = $("tkMsg").value.trim();
+    if (!subject || !message) return say("اكتب العنوان والتفاصيل");
+    await addDoc(collection(db,"tickets"), {uid:user.uid, email:user.email, name:user.displayName||"", type:$("tkType").value, subject, message, status:"open", replies:[], createdAt:serverTimestamp()});
+    $("tkSubject").value = ""; $("tkMsg").value = ""; say("تم الإرسال");
+  });
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (t.dataset.order) run(() => updateDoc(doc(db,"orders",t.dataset.order), {status:t.value}));
+  if (t.dataset.role) run(async () => {
+    const u = usersList.find(x => x.id === t.dataset.role);
+    await updateDoc(doc(db,"users",t.dataset.role), {role:t.value});
+    if (u && u.email) await setDoc(doc(db,"grants",u.email.toLowerCase()), {role:t.value, by:user.email, updatedAt:serverTimestamp()}, {merge:true});
+    say("تم تغيير الرتبة");
+  });
+});
+document.addEventListener("input", e => {
+  const t = e.target, d = t.dataset;
+  if (d.pi !== undefined) payEdit[+d.pi][d.f] = t.value;
+  if (d.sk !== undefined && siteEdit) siteEdit[d.sk] = t.value;
+  if (d.sa !== undefined && siteEdit) siteEdit[d.sa][+d.si][d.sf] = t.value;
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" || e.shiftKey) return;
+  if (e.target.id === "roomIn") $("roomSend").click();
+  if (e.target.id === "ocIn") $("ocSend").click();
+});
+
+renderAll();
+setInterval(renderProducts, 60000);
+if (ok) {
+  const sub = (ref, fn) => unsubs.push(onSnapshot(ref, fn, e => console.warn(e.code)));
+  const list = s => s.docs.map(d => ({id:d.id, ...d.data()}));
+
+  onSnapshot(collection(db,"products"), s => {
+    products = list(s).sort((a, b) => ms(a.createdAt) - ms(b.createdAt));
+    productsReady = true;
+    renderProducts();
+    if (curTab==="products") renderTab();
+  }, e => { console.warn(e.code); productsReady = true; renderProducts(); });
+  onSnapshot(doc(db,"settings","site"), s => { site = s.exists() ? {...DEF_SITE, ...s.data()} : DEF_SITE; renderSite(); }, e => console.warn(e.code));
+  onSnapshot(doc(db,"settings","payments"), s => { pay = (s.exists() && s.data().methods?.length) ? s.data().methods : DEF_PAY; renderPayments(); });
+
+  try { if (localStorage.getItem("ba_seen") !== "1")
+    setDoc(doc(db,"stats","visits"), {count:increment(1)}, {merge:true}).then(()=>localStorage.setItem("ba_seen","1")).catch(()=>{});
+  } catch(_) {}
+
+  onAuthStateChanged(auth, async u => {
+    unsubs.forEach(f => f()); unsubs = []; clearInterval(presTimer);
+    user = u; role = "buyer"; myTickets = myOrders = staffTickets = orders = usersList = grants = roomMsgs = online = [];
+    if (u) {
+      try {
+        const isOwner = u.email === FOUNDER_EMAIL, ref = doc(db,"users",u.uid), snap = await getDoc(ref);
+        if (!snap.exists()) {
+          role = "buyer";
+          if (isOwner) role = "founder";
+          else { try { const g = await getDoc(doc(db,"grants",u.email.toLowerCase())); if (g.exists() && g.data().role in RANK) role = g.data().role; } catch (_) {} }
+          await setDoc(ref, {email:u.email, name:u.displayName||"", photo:u.photoURL||"", role, createdAt:serverTimestamp()});
+        } else {
+          role = snap.data().role || "buyer";
+          if (isOwner && role !== "founder") { await updateDoc(ref, {role:"founder"}); role = "founder"; }
+        }
+      } catch (e) { say("تأكد إنك نشرت قواعد Firestore (Rules): " + e.code); }
+      sub(doc(db,"users",u.uid), s => {
+        const nr = s.exists() && s.data().role;
+        if (!nr || nr === role || !(nr in RANK)) return;
+        if (nr === "banned") { role = "banned"; renderAll(); }
+        else {
+          let last = 0; try { last = +sessionStorage.getItem("ba_rl") || 0; } catch (_) {}
+          if (Date.now() - last > 5000) { try { sessionStorage.setItem("ba_rl", String(Date.now())); } catch (_) {} location.reload(); }
+        }
+      });
+      if (role === "banned") { renderAll(); return; }
+      const r = RANK[role];
+      sub(query(collection(db,"tickets"), where("uid","==",u.uid)), s => { myTickets = list(s); renderSupport(); });
+      sub(query(collection(db,"orders"), where("uid","==",u.uid)), s => { myOrders = list(s); renderSupport(); renderOCHead(); });
+      if (r >= 1) {
+        sub(collection(db,"tickets"), s => { staffTickets = list(s); renderPanel(); });
+        sub(query(collection(db,"staffRoom"), orderBy("createdAt","desc"), limit(100)), s => { roomMsgs = listE(s).reverse(); renderPanel(); updateRoom(); });
+        sub(collection(db,"presence"), s => { online = listE(s); renderOnline(); });
+        startPresence();
+      }
+      if (r >= 2) {
+        sub(collection(db,"orders"), s => { orders = list(s); renderPanel(); renderOCHead(); });
+        sub(collection(db,"users"), s => { usersList = list(s); if (curTab==="perms") renderTab(); });
+        sub(collection(db,"grants"), s => { grants = list(s); if (curTab==="perms") renderTab(); });
+        sub(doc(db,"stats","visits"), s => countTo($("visits"), s.exists() ? s.data().count : 0, false));
+      }
+    }
+    renderAll();
+  });
+}
+</script>
+</body>
+</html>
